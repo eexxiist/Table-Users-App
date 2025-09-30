@@ -27,7 +27,21 @@ const TableUsers = () => {
         getData();
     }, []);
 
-    const handleAddUser = () => {
+    const handleAddUser = async () => {
+        try {
+            const response = await fetch(
+                "https://68da4f7323ebc87faa2faa7c.mockapi.io/users",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                }
+            );
+            const result = await response.json();
+        } catch (error) {
+            console.log(error);
+        }
+
         setUsersData([...usersData, formData]);
         setFormData({
             name: "",
