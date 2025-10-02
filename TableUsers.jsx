@@ -42,13 +42,29 @@ const TableUsers = () => {
             console.log(error);
         }
 
-        setUsersData([...usersData, formData]);
+        setUsersData([...usersData, result]);
         setFormData({
             name: "",
             surName: "",
             age: "",
             email: "",
         });
+    };
+
+    const handleDeleteUser = async (id) => {
+        try {
+            const response = await fetch(
+                `https://68da4f7323ebc87faa2faa7c.mockapi.io/users/${id}`,
+                {
+                    method: "DELETE",
+                }
+            );
+            if (response.ok) {
+                setUsersData(usersData.filter((user) => user.id !== id));
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -72,7 +88,11 @@ const TableUsers = () => {
                                 <td>{el.email}</td>
                                 <td>
                                     <button>edit</button>
-                                    <button>delit</button>
+                                    <button
+                                        onClick={() => handleDeleteUser(el.id)}
+                                    >
+                                        delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}
