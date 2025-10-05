@@ -1,8 +1,128 @@
-table,
-th,
-td,
-tr {
-    border: 1px solid black;
+.wrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #f3f4f6;
+    padding: 40px 0;
+}
+
+.mainTable {
+    width: 90%;
+    max-width: 1000px;
     border-collapse: collapse;
-    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+}
+
+.mainTable thead {
+    background-color: #f9fafb;
+}
+
+.mainTable th {
+    text-align: left;
+    padding: 14px 16px;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.mainTable td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+    vertical-align: middle;
+}
+
+.mainTable tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.mainTable tbody tr:hover {
+    background-color: #f1f5f9;
+    transition: background 0.2s ease;
+}
+
+.input {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+    border-color: #698cd6;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.button {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    margin-right: 6px;
+    color: #fff;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+.addButton {
+    background-color: #53d683;
+}
+.addButton:hover {
+    background-color: #378353;
+}
+
+.saveButton {
+    background-color: #5e84d7;
+}
+.saveButton:hover {
+    background-color: #2f4797;
+}
+
+.cancelButton {
+    background-color: #6b7280;
+}
+.cancelButton:hover {
+    background-color: #4b5563;
+}
+
+.editButton {
+    background-color: #5e84d7;
+}
+.editButton:hover {
+    background-color: #2f4797;
+}
+
+.deleteButton {
+    background-color: #e75151;
+}
+.deleteButton:hover {
+    background-color: #b91c1c;
+}
+
+.mainTable tfoot {
+    background-color: #f9fafb;
+}
+
+.mainTable tfoot td {
+    padding: 12px 14px;
+    border-top: 2px solid #e5e7eb;
 }
