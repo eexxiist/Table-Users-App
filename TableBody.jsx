@@ -1,30 +1,35 @@
-import React from "react";
-
+import React, { useState } from "react";
 import User from "./User";
+import SearchInputs from "./searchInputs";
 
-const TableBody = ({
-    usersData,
-    editUserId,
-    formData,
-    setFormData,
-    handleAddUser,
-    handleCancelEdit,
-    handleEditUser,
-    handleDeleteUser,
-}) => {
+const TableBody = ({ usersData, setUsersData }) => {
+    const [search, setSearch] = useState({
+        name: "",
+        surName: "",
+        age: "",
+        email: "",
+    });
+
+    const searchData = usersData.filter((user) => {
+
+
+        if (
+            user.name.includes(search.name.toLowerCase()) &&
+            user.surName.toLowerCase().includes(search.surName.toLowerCase()) &&
+            String(user.age).includes(search.age) &&
+            user.email.toLowerCase().includes(search.email.toLowerCase())
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
     return (
         <tbody>
-            {usersData.map((user) => (
-                <User
-                    user={user}
-                    editUserId={editUserId}
-                    formData={formData}
-                    setFormData={setFormData}
-                    handleAddUser={handleAddUser}
-                    handleCancelEdit={handleCancelEdit}
-                    handleEditUser={handleEditUser}
-                    handleDeleteUser={handleDeleteUser}
-                />
+            <SearchInputs setSearch={setSearch} search={search} />
+            {searchData.map((user) => (
+                <User user={user} setUsersData={setUsersData} />
             ))}
         </tbody>
     );

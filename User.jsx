@@ -1,19 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./TableUsers.module.css";
 
-const User = ({
-    user,
-    editUserId,
-    formData,
-    setFormData,
-    handleAddUser,
-    handleCancelEdit,
-    handleEditUser,
-    handleDeleteUser,
-}) => {
+const User = ({ setUsersData, user, handleCancelEdit }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [formData, setFormData] = useState({ ...user });
+
+    const handleDeleteUser = async (id) => {
+        try {
+            const response = await fetch(
+                `https://68da4f7323ebc87faa2faa7c.mockapi.io/users/${id}`,
+                {
+                    method: "DELETE",
+                }
+            );
+            if (response.ok) {
+                setUsersData((usersData) =>
+                    usersData.filter((user) => user.id !== id)
+                );
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleSaveUser = async (id) => {
+        try {
+            const response = await fetch(
+                `https://68da4f7323ebc87faa2faa7c.mockapi.io/users/${id}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData),
+                }
+            );
+            const result = await response.json();
+            setUsersData((usersData) =>
+                usersData.map((editUser) =>
+                    editUser.id === id ? result : editUser
+                )
+            );
+            setIsEditing(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <tr key={user.id}>
-            {user.id === editUserId ? (
+            {isEditing ? (
                 <>
                     <td>
                         <input
@@ -71,7 +105,7 @@ const User = ({
                     <td>
                         <button
                             className={`${Styles.button} ${Styles.saveButton}`}
-                            onClick={handleAddUser}
+                            onClick={() => handleSaveUser(user.id)}
                         >
                             Save
                         </button>
@@ -85,14 +119,20 @@ const User = ({
                 </>
             ) : (
                 <>
-                    <td>{user.name}</td>
-                    <td>{user.surName}</td>
+                    <td>
+                        {user.name[0].toUpperCase() +
+                            user.name.slice(1).toLowerCase()}
+                    </td>
+                    <td>
+                        {user.surName[0].toUpperCase() +
+                            user.surName.slice(1).toLowerCase()}
+                    </td>
                     <td>{user.age}</td>
                     <td>{user.email}</td>
                     <td>
                         <button
                             className={`${Styles.button} ${Styles.editButton}`}
-                            onClick={() => handleEditUser(user)}
+                            onClick={() => setIsEditing(true)}
                         >
                             Edit
                         </button>

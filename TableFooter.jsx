@@ -21,6 +21,7 @@ const TableFooter = ({ usersData, setUsersData }) => {
             );
             const result = await response.json();
             setUsersData([...usersData, result]);
+            console.log([...usersData, result]);
             setNewUser({ name: "", surName: "", age: "", email: "" });
         } catch (error) {
             console.log(error);
@@ -33,6 +34,7 @@ const TableFooter = ({ usersData, setUsersData }) => {
             email: "",
         });
     };
+
     return (
         <tfoot>
             <tr>
