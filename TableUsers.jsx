@@ -7,26 +7,27 @@ import TableFooter from "./TableFooter";
 const TableUsers = () => {
     const [usersData, setUsersData] = useState([]);
 
-    const getData = async () => {
-        try {
-            const res = await fetch(
-                "https://68da4f7323ebc87faa2faa7c.mockapi.io/users"
-            );
-            const data = await res.json();
-            setUsersData(data);
-        } catch (error) {
-            console.log("Error", error);
-        }
-    };
-
     useEffect(() => {
-        getData();
+        (async () => {
+            try {
+                const res = await fetch(
+                    "https://68da4f7323ebc87faa2faa7c.mockapi.io/users"
+                );
+                const data = await res.json();
+                setUsersData(data);
+            } catch (error) {
+                console.log("Error", error);
+            }
+        })();
     }, []);
 
     return (
         <div className={Styles.wrapper}>
             <table className={Styles.mainTable}>
-                <TableHeader />
+                <TableHeader
+                    usersData={usersData}
+                    setUsersData={setUsersData}
+                />
 
                 <TableBody usersData={usersData} setUsersData={setUsersData} />
 

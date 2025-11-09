@@ -10,7 +10,7 @@ const TableBody = ({ usersData, setUsersData }) => {
         email: "",
     });
 
-    const searchData = usersData.filter((user) => {
+    const searchData = [...usersData].filter((user) => {
 
 
         if (
@@ -37,18 +37,4 @@ const TableBody = ({ usersData, setUsersData }) => {
 
 export default TableBody;
 
-// const response = await fetch(
-//     `https://68da4f7323ebc87faa2faa7c.mockapi.io/users/${editUserId}`,
-//     {
-//         method: "PUT",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(formData),
-//     }
-// );
-// const result = await response.json();
-// setUsersData(
-//     usersData.map((user) =>
-//         user.id === editUserId ? result : user
-//     )
-// );
-// setEditUserId(null);
+

@@ -1,27 +1,64 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSortAlphaUp } from "react-icons/fa";
-import { BsSortDown } from "react-icons/bs";
+import { FaSortAmountUp } from "react-icons/fa";
+import { FaSortAlphaDown } from "react-icons/fa";
+import Styles from "./TableUsers.module.css";
+import bubleSortUsers from "../../utils/sortFunctions";
 
-const TableHeader = () => {
-    const changeIcon = () => {
-        const closeIcon = true;
-        closeIcon;
+const TableHeader = ({ usersData, setUsersData }) => {
+    const [sortColumn, setSortColumn] = useState("");
+    const [changeSort, setChangeSort] = useState("");
+
+    const changeIcon = (sortColumnName) => {
+        setUsersData(bubleSortUsers(usersData, sortColumnName, changeSort));
+        setSortColumn(sortColumnName);
+        setChangeSort((currentSort) =>
+            currentSort === "" ? "asc" : currentSort === "asc" ? "desc" : ""
+        );
     };
 
     return (
         <thead>
             <tr>
-                <th>
-                    name <FaSortAlphaUp />
+                <th
+                    className={Styles.tableHeaderCeil}
+                    name="name"
+                    onClick={() => changeIcon("name")}
+                >
+                    name{" "}
+                    {sortColumn === "name" ? (
+                        changeSort === "asc" ? (
+                            <FaSortAlphaDown size={20} color={"blue"} />
+                        ) : (
+                            <FaSortAlphaUp size={20} color={"blue"} />
+                        )
+                    ) : (
+                        <FaSortAlphaUp />
+                    )}
                 </th>
-                <th>
-                    surName <FaSortAlphaUp />
+                <th name="surName" onClick={() => changeIcon("surName")}>
+                    surName{" "}
+                    {sortColumn === "surName" ? (
+                        <FaSortAlphaUp size={20} color={"blue"} />
+                    ) : (
+                        <FaSortAlphaUp />
+                    )}
                 </th>
-                <th>
-                    age <BsSortDown />
+                <th name="age" onClick={() => changeIcon("age")}>
+                    age{" "}
+                    {sortColumn === "age" ? (
+                        <FaSortAmountUp size={20} color={"blue"} />
+                    ) : (
+                        <FaSortAmountUp />
+                    )}
                 </th>
-                <th>
-                    email <FaSortAlphaUp />
+                <th name="email" onClick={() => changeIcon("email")}>
+                    email{" "}
+                    {sortColumn === "email" ? (
+                        <FaSortAlphaUp size={20} color={"blue"} />
+                    ) : (
+                        <FaSortAlphaUp />
+                    )}
                 </th>
                 <th>actions</th>
             </tr>
