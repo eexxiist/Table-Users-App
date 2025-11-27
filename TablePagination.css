@@ -1,0 +1,26 @@
+.pagination-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px;
+}
+
+.page-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-input {
+    width: 60px;
+    padding: 4px 6px;
+}
+
+.limit-select {
+    padding: 4px 6px;
+}
+
+.nav-btn {
+    padding: 6px 12px;
+    cursor: pointer;
+}

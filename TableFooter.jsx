@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Styles from "./TableUsers.module.css";
+import TablePagination from "./TablePagination";
 
 const TableFooter = ({ usersData, setUsersData }) => {
     const [newUser, setNewUser] = useState({
@@ -103,6 +104,7 @@ const TableFooter = ({ usersData, setUsersData }) => {
                     </button>
                 </td>
             </tr>
+            <TablePagination />
         </tfoot>
     );
 };

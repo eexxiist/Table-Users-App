@@ -3,6 +3,7 @@ import Styles from "./TableUsers.module.css";
 import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import TableFooter from "./TableFooter";
+import createUser from "../../utils/createUser";
 
 const TableUsers = () => {
     const [usersData, setUsersData] = useState([]);
@@ -14,7 +15,12 @@ const TableUsers = () => {
                     "https://68da4f7323ebc87faa2faa7c.mockapi.io/users"
                 );
                 const data = await res.json();
-                setUsersData(data);
+
+                const mockUsersData = Array.from({ length: 2000 }, () =>
+                    createUser()
+                );
+
+                setUsersData([...data, ...mockUsersData]);
             } catch (error) {
                 console.log("Error", error);
             }
