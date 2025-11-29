@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import User from "./User";
 import SearchInputs from "./searchInputs";
 
-const TableBody = ({ usersData, setUsersData }) => {
+const TableBody = ({
+    usersData,
+    setUsersData,
+    currentVisibleUser,
+    currentPage,
+}) => {
     const [search, setSearch] = useState({
         name: "",
         surName: "",
@@ -10,9 +15,7 @@ const TableBody = ({ usersData, setUsersData }) => {
         email: "",
     });
 
-    const searchData = [...usersData].filter((user) => {
-
-
+    const searchData = usersData.filter((user) => {
         if (
             user.name.includes(search.name.toLowerCase()) &&
             user.surName.toLowerCase().includes(search.surName.toLowerCase()) &&
@@ -25,10 +28,17 @@ const TableBody = ({ usersData, setUsersData }) => {
         }
     });
 
+    console.log(currentPage, currentVisibleUser);
+
+    const sliceUsers = searchData.slice(
+        currentVisibleUser * currentPage - currentVisibleUser,
+        currentVisibleUser * currentPage
+    );
+
     return (
         <tbody>
             <SearchInputs setSearch={setSearch} search={search} />
-            {searchData.map((user) => (
+            {sliceUsers.map((user) => (
                 <User user={user} setUsersData={setUsersData} />
             ))}
         </tbody>
@@ -36,5 +46,3 @@ const TableBody = ({ usersData, setUsersData }) => {
 };
 
 export default TableBody;
-
-

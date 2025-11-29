@@ -4,9 +4,12 @@ import TableHeader from "./TableHeader";
 import TableBody from "./TableBody";
 import TableFooter from "./TableFooter";
 import createUser from "../../utils/createUser";
+import TablePagination from "./TablePagination";
 
 const TableUsers = () => {
     const [usersData, setUsersData] = useState([]);
+    const [currentVisibleUser, setCurrentVisibleUser] = useState(5);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         (async () => {
@@ -35,19 +38,29 @@ const TableUsers = () => {
                     setUsersData={setUsersData}
                 />
 
-                <TableBody usersData={usersData} setUsersData={setUsersData} />
+                <TableBody
+                    usersData={usersData}
+                    setUsersData={setUsersData}
+                    currentPage={currentPage}
+                    currentVisibleUser={currentVisibleUser}
+                />
 
                 <TableFooter
                     setUsersData={setUsersData}
                     usersData={usersData}
                 />
             </table>
+            <TablePagination
+                currentVisibleUser={currentVisibleUser}
+                setCurrentVisibleUser={setCurrentVisibleUser}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                usersData={usersData}
+            />
         </div>
     );
 };
 
 export default TableUsers;
 
-//над таблицей инпуты с поиском над каждым столбцом*
-
-//сортировка*
+//менять коли

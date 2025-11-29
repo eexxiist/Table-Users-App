@@ -1,15 +1,34 @@
 import React from "react";
 import "./TablePagination.css";
 
-const TablePagination = () => {
+const TablePagination = ({
+    currentVisibleUser,
+    setCurrentVisibleUser,
+    currentPage,
+    setCurrentPage,
+    usersData,
+}) => {
+    const lastPage = Math.ceil(usersData.length / currentVisibleUser);
     return (
         <div className="pagination-wrapper">
-            <button className="nav-btn">Previous</button>
+            <button
+                onClick={() =>
+                    setCurrentPage(currentPage != 1 ? currentPage - 1 : 1)
+                }
+                disabled={currentPage === 1}
+                className="nav-btn"
+            >
+                Previous
+            </button>
 
             <div className="page-controls">
                 <span>Page</span>
-                <input type="number" className="page-input" />
-                <span>of</span>
+                <input
+                    type="number"
+                    value={currentPage}
+                    className="page-input"
+                />
+                <span>of {lastPage}</span>
 
                 <select className="limit-select">
                     <option value="5">5</option>
@@ -19,7 +38,17 @@ const TablePagination = () => {
                 </select>
             </div>
 
-            <button className="nav-btn">Next</button>
+            <button
+                onClick={() =>
+                    setCurrentPage(
+                        currentPage === lastPage ? lastPage : currentPage + 1
+                    )
+                }
+                disabled={currentPage === lastPage}
+                className="nav-btn"
+            >
+                Next
+            </button>
         </div>
     );
 };
