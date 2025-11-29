@@ -9,7 +9,7 @@ import TablePagination from "./TablePagination";
 const TableUsers = () => {
     const [usersData, setUsersData] = useState([]);
     const [currentVisibleUser, setCurrentVisibleUser] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState("1");
 
     useEffect(() => {
         (async () => {

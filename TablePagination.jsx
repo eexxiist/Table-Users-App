@@ -27,10 +27,14 @@ const TablePagination = ({
                     type="number"
                     value={currentPage}
                     className="page-input"
+                    onChange={(e) => setCurrentPage(+e.target.value)}
                 />
                 <span>of {lastPage}</span>
 
-                <select className="limit-select">
+                <select
+                    onChange={(e) => setCurrentVisibleUser(e.target.value)}
+                    className="limit-select"
+                >
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
