@@ -9,7 +9,13 @@ import TablePagination from "./TablePagination";
 const TableUsers = () => {
     const [usersData, setUsersData] = useState([]);
     const [currentVisibleUser, setCurrentVisibleUser] = useState(5);
-    const [currentPage, setCurrentPage] = useState("1");
+    const [currentPage, setCurrentPage] = useState(1);
+    const [search, setSearch] = useState({
+        name: "",
+        surName: "",
+        age: "",
+        email: "",
+    });
 
     useEffect(() => {
         (async () => {
@@ -19,7 +25,7 @@ const TableUsers = () => {
                 );
                 const data = await res.json();
 
-                const mockUsersData = Array.from({ length: 2000 }, () =>
+                const mockUsersData = Array.from({ length: 10000 }, () =>
                     createUser()
                 );
 
@@ -30,6 +36,27 @@ const TableUsers = () => {
         })();
     }, []);
 
+
+    const searchData = usersData.filter((user) => {
+        if (
+            user.name.toLowerCase().includes(search.name.toLowerCase()) &&
+            user.surName.toLowerCase().includes(search.surName.toLowerCase()) &&
+            String(user.age).includes(search.age) &&
+            user.email.toLowerCase().includes(search.email.toLowerCase())
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    console.log(searchData);
+
+    const sliceUsers = searchData.slice(
+        currentVisibleUser * currentPage - currentVisibleUser,
+        currentVisibleUser * currentPage
+    );
+
     return (
         <div className={Styles.wrapper}>
             <table className={Styles.mainTable}>
@@ -39,10 +66,10 @@ const TableUsers = () => {
                 />
 
                 <TableBody
-                    usersData={usersData}
+                    setSearch={setSearch}
+                    search={search}
+                    sliceUsers={sliceUsers}
                     setUsersData={setUsersData}
-                    currentPage={currentPage}
-                    currentVisibleUser={currentVisibleUser}
                 />
 
                 <TableFooter
@@ -56,6 +83,7 @@ const TableUsers = () => {
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
                 usersData={usersData}
+                searchData={searchData}
             />
         </div>
     );
